@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  python-backend:
+    build:
+      context: ./python-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - FLASK_ENV=production
+      - TMDB_API_KEY=bec469490202847eee0bec57cfe9349a  # Inserisci qui la tua chiave API TMDb
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  node-backend:
+    build:
+      context: ./node-backend
+    ports:
+      - "7001:7001"
+    environment:
+      - PYTHON_API_BASE_URL=http://python-backend:8000
+    depends_on:
+      - python-backend
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
