@@ -15,7 +15,7 @@ services:
     build:
       context: ./node-backend
     ports:
-      - "7001:7001"
+      - "7000:7000"
     environment:
       PYTHON_API_BASE_URL: http://python-backend:8000
     depends_on:
